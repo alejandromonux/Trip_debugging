@@ -50,4 +50,13 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+# Others (CLion)
 tripo
+*.txt
+*.cmake
+*.cbp
+*.marks
+\cmake-build-debug
+*.iml
+*.xml
