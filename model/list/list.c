@@ -45,26 +45,24 @@ void insert(List * l, Destination d) {
 		l->poi[i] = l->first;
 
 		do {
-			//Avancem al següent element i mirem si aquest encara l'hem de saltar
-			l->poi[i] = l->poi[i]->next[i];
 
-			if (l->poi[i] = l->last) {
+			if (l->poi[i]->next[i] == l->last) {
 				break;
 			}
 
 			//Les condicions per saltar un element depenen del mode d'ordenació
 			switch (i) {
 				case BY_NAME:
-					condicio = strcmp(d.name, l->poi[i]->dest.name) > 0;
+					condicio = strcmp(d.name, l->poi[i]->next[i]->dest.name) >= 0;
 					break;
 				case BY_AVG_PRICE:
-					condicio = getAverageHotelPrice(d) > getAverageHotelPrice(l->poi[i]->dest);
+					condicio = getAverageHotelPrice(d) > getAverageHotelPrice(l->poi[i]->next[i]->dest);
 					break;
 				case BY_DISTANCE:
-					condicio = getDistanceFromBcn(d) > getDistanceFromBcn(l->poi[i]->dest);
+					condicio = getDistanceFromBcn(d) > getDistanceFromBcn(l->poi[i]->next[i]->dest);
 					break;
 				case BY_TIME:
-					condicio = getTimeFromBcn(d) > getTimeFromBcn(l->poi[i]->dest);
+					//condicio = getTimeFromBcn(d) > getTimeFromBcn(l->poi[i]->next[i]->dest);
 					break;
 				default:
 					//Si per un casual algú decideix afegir més camps, ens protegim ordenant segons entrada
@@ -72,11 +70,17 @@ void insert(List * l, Destination d) {
 					break;
 			}
 			//Seguim saltant mentre no arribem al darrer element i es segueixi complint la condició de salt
+
+			//Avancem al següent element i mirem si aquest encara l'hem de saltar
+			if ((l->poi[i]->next[i] != l->last)&&(condicio)) {
+				l->poi[i] = l->poi[i]->next[i];
+			}
+
 		} while (condicio);
 
 		//Apuntem els punters del nou node
-		nou->prev[i] = l->poi[i]->prev[i];
-		nou->next[i] = l->poi[i];
+		nou->prev[i] = l->poi[i];
+		nou->next[i] = l->poi[i]->next[i];
 		//Fem que els elements als que hem apuntat ens apuntin a nosaltres
 		nou->prev[i]->next[i] = nou;
 		nou->next[i]->prev[i] = nou;

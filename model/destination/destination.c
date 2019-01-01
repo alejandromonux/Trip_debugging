@@ -92,7 +92,9 @@ double travelThroughAltitude(double ** travelAltitude, int i, int j, int n) {
 	int newI = i, newJ = j, min = NORTH;
 	double minAlt = 0;
 
-	for (int k = 0; k < DIRECTIONS; k++) {
+
+	int k;
+	for (k = 0; k < DIRECTIONS; k++) {
 		double alt = checkAltitudeInDirection(travelAltitude, i, j, k, n);
 
 		if (alt < minAlt) {
@@ -126,8 +128,9 @@ void mapAltitude(double ** travelAltitude, char ** map, int i, int j, int n) {
 
 	int newI = i, newJ = j, min = NORTH;
 	double minAlt = 0;
+	int k;
 
-	for (int k = 0; k < DIRECTIONS; k++) {
+	for (k = 0; k < DIRECTIONS; k++) {
 		double alt = checkAltitudeInDirection(travelAltitude, i, j, k, n);
 
 		if (alt < minAlt) {
