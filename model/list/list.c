@@ -62,7 +62,7 @@ void insert(List * l, Destination d) {
 					condicio = getDistanceFromBcn(d) > getDistanceFromBcn(l->poi[i]->next[i]->dest);
 					break;
 				case BY_TIME:
-					//condicio = getTimeFromBcn(d) > getTimeFromBcn(l->poi[i]->next[i]->dest);
+					condicio = getTimeFromBcn(d) > getTimeFromBcn(l->poi[i]->next[i]->dest);
 					break;
 				default:
 					//Si per un casual algú decideix afegir més camps, ens protegim ordenant segons entrada

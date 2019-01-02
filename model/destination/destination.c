@@ -76,10 +76,10 @@ void advanceInDirection(int *i, int *j, int direction) {
 double checkAltitudeInDirection(double ** travelAltitude, int i, int j, int direction, int n) {
 	advanceInDirection(&i, &j, direction);
 
-	if (i >= n || j >= n || i < 0 || j < 0) {
+	if ((i) >= n || (j) >= n || (i) < 0 || (j) < 0) {
 		return INFINITY;
 	}
-	return travelAltitude[i][j];
+	return travelAltitude[(i)][(j)];
 }
 
 // Recorre recursivament la matriu buscant la mínima altitud i retornant el total recorregut
@@ -90,22 +90,28 @@ double travelThroughAltitude(double ** travelAltitude, int i, int j, int n) {
 	}
 
 	int newI = i, newJ = j, min = NORTH;
-	double minAlt = 0;
+	double minAlt = INFINITY;
 
 
 	int k;
 	for (k = 0; k < DIRECTIONS; k++) {
-		double alt = checkAltitudeInDirection(travelAltitude, i, j, k, n);
+	    double alt = checkAltitudeInDirection(travelAltitude, newI, newJ, k, n);
+        //double alt = checkAltitudeInDirection(travelAltitude, &newI, &newJ, k, n);
+
 
 		if (alt < minAlt) {
-			minAlt = alt;
-			min = k;
+			if(alt != INFINITY){
+                minAlt = alt;
+                min = k;
+			}
 		}
 	}
 
 	advanceInDirection(&newI, &newJ, min);
 
-	return travelAltitude[i][j] + travelThroughAltitude(travelAltitude, i, j, n);
+	return travelAltitude[i][j] + travelThroughAltitude(travelAltitude, newI, newJ, n);
+	//return travelAltitude[i][j] + travelThroughAltitude(travelAltitude, i, j, n);
+
 }
 
 // Retorna una estimació del temps de viatge des de BCN segons l'altitud
