@@ -181,22 +181,27 @@ char * readString(FILE * file) {
 	int i = 0;
 	int size = 10;
 	char tmp;
-	char* ret = (char*) malloc(sizeof(char) * size);
+	char* ret = (char*) malloc((sizeof(char) * (size))*2);
 
 
 	fscanf(file, "%c", &tmp);
 	do {
-		i++[ret] = tmp;
+		//i++[ret] = tmp;
+        ret[i++] = tmp;
 
 		if (i >= size) {
 			size *= 2;
-			resize(&ret, size);
+			ret = resize(&ret, size);
 		}
 		fscanf(file, "%c", &tmp);
 	} while(tmp != '\n');
 
-	resize(&ret, i + 1);
-
+	//resize(&ret, i + 1);
+	//ret[i+1] = '\0';
+    int j;
+	for (j = i; j < i+1 ; j++){
+        ret[i] = '\0';
+	}
 
 	return ret;
 }
