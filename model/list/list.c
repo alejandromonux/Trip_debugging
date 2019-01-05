@@ -109,6 +109,18 @@ void removePoi(List * l, int mode) {
 		    //free(aux);
             //aux = l -> poi[i+1];
 		}
+		free(aux->dest.name);
+		free(aux->dest.country);
+		free(aux->dest.hotelPrices);
+		int h;
+		for(h=0; h < aux->dest.n ; h++){
+		    free(aux->dest.travelAltitude[h]);
+		}
+		free(aux->dest.travelAltitude);
+        for (h = 0; h < MAX_SORTING; h++) {
+            aux->next[h] = NULL;
+            aux->prev[h] = NULL;
+        }
 		free(aux);
 		l -> n--;
 	}
@@ -169,5 +181,8 @@ void destroy(List * l) {
 	while (!isEmpty(*l)) {
 		removePoi(l, 0);
 	}
+
+    free(l->last);
+    free(l->first);
 
 }
